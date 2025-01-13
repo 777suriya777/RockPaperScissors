@@ -28,16 +28,18 @@ function playRound(humanChoice, computerChoice){
     }
 }
 
-function playGame(){
-    for(let i=0;i<5;i++){
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice,computerChoice);
-    }
-    if(humanScore > computerScore) alert("You Win");
-    else if(humanScore < computerScore) alert("You Loose");
-    else alert("Tie");
-    alert("Your Score : " + humanScore + " and Computer Score : " + computerScore);
-}
+const container = document.querySelector(".container");
+let result = document.querySelector(".result");
+let final = document.querySelector(".final");
 
-playGame();
+container.addEventListener("click", (event) => {
+    let target = event.target.getAttribute("class");
+    let computerChoice = getComputerChoice();
+    playRound(target,computerChoice);
+    result.textContent =  "Your Score - " + humanScore + " Computer Score - " + computerScore;
+    if(humanScore === 5 || computerScore === 5){
+        let str = humanScore > computerScore ? "You Win" :
+            (humanScore < computerScore ? "You Loose" : "You Tie");
+        final.textContent = "Game Over : " + str; 
+    }
+});
